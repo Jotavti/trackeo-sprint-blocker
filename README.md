@@ -3,7 +3,7 @@
 API REST para el seguimiento de impedimentos (blockers) durante sprints de desarrollo.
 
 ## Stack
-- Node.js + Express
+- Node.js y Express
 - MongoDB + Mongoose
 - JWT para autenticación
 - Swagger para documentación
