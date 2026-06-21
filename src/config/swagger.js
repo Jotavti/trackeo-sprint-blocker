@@ -7,6 +7,7 @@ const swaggerDocument = {
       'API para centralizar los impedimentos de sprint. Los devs cargan sus blockers y el PM los gestiona.',
   },
   servers: [
+    { url: 'https://trackeo-sprint-blocker.onrender.com', description: 'Producción' },
     { url: 'http://localhost:3000', description: 'Desarrollo local' },
   ],
   components: {
