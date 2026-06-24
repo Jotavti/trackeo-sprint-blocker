@@ -1,3 +1,19 @@
+// CONTROLLER DE AUTENTICACIÓN — CAPA DE LÓGICA DE NEGOCIO
+// Recibe los requests de /api/auth, valida los datos, ejecuta la lógica
+// y devuelve la respuesta HTTP. No toca MongoDB directamente — delega al repository.
+//
+// register:
+//   1. Verifica que el email no esté registrado
+//   2. Hashea la password con bcrypt (10 rounds)
+//   3. Crea el usuario en la base de datos
+//   4. Devuelve 201 con el ID del usuario creado
+//
+// login:
+//   1. Busca el usuario por email
+//   2. Compara la password con el hash guardado usando bcrypt
+//   3. Si es válido, genera un JWT firmado con userId, email y role
+//   4. Devuelve el token junto con el rol y nombre (para que el cliente sepa quién es)
+
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import userRepository from '../repositories/user.repository.js';
@@ -28,6 +44,7 @@ const login = async (req, res) => {
     const valid = await bcrypt.compare(password, user.password);
     if (!valid) return res.status(401).json({ message: 'Credenciales inválidas' });
 
+    // El token incluye userId, email y role — el authMiddleware los extrae en cada request
     const token = jwt.sign(
       { userId: user._id, email: user.email, role: user.role },
       process.env.JWT_SECRET,

@@ -1,3 +1,9 @@
+// CONEXIÓN A MONGODB
+// Función que establece la conexión con MongoDB Atlas usando Mongoose.
+// Se llama una sola vez al arrancar el servidor (desde server.js).
+// Si la conexión falla, el proceso termina con error — no tiene sentido
+// levantar el servidor si no hay base de datos disponible.
+
 import mongoose from 'mongoose';
 
 const connectDB = async () => {
